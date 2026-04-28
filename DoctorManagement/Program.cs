@@ -13,6 +13,8 @@ var doctor =
  
 var connectionString = "Server = localhost; Database = DoctorApiDb; User Id = sa; Password = P@ssw0rd!@#$;TrustServerCertificate=True;";
 
+// manually create the database connection and context
+
 var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 optionsBuilder.UseSqlServer(connectionString);
 var connection = new ApplicationDbContext(optionsBuilder.Options);
@@ -34,7 +36,20 @@ doctors.ForEach(d =>
 });
 
 //read doctor by id
-Doctor? doctorFromDb = connection.Doctors.Find(1);
+Doctor? doctorFromDb = connection.Doctors.Find(1L);
 
-Console.WriteLine(doctorFromDb.Name);
+if (doctorFromDb != null)
+    Console.WriteLine(doctorFromDb.Name);
 
+Appointment appointment = new Appointment
+{
+    Doctor = doctorFromDb,
+    // specify certain date and time for the appointment
+
+        Date = new DateTime(2026,05,02,14,30,00),
+         Description = "Regular check-up"
+};
+connection.Appointments.Add(appointment);
+connection.SaveChanges();
+
+connection.Dispose();
