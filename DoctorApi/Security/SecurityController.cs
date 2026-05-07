@@ -1,4 +1,5 @@
 ﻿using DoctorApi.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -19,7 +20,7 @@ public class SecurityController : ControllerBase
     }
 
     [HttpPost("login")]
-    public IActionResult Login([FromBody] LoginRequest request)
+    public  IActionResult  Login([FromBody] LoginRequest request)
     {
         // Validate the login credentials (this is just a placeholder, implement your own logic)
         if (request.Username == "admin" && request.Password == "password")
@@ -33,6 +34,16 @@ public class SecurityController : ControllerBase
             return Unauthorized();
         }
     }
+
+
+    [HttpGet("doctorMessage")]
+    [Authorize]
+    public IActionResult GetProtectedData()
+    {
+        // This endpoint is protected and requires a valid JWT token
+        return Ok(new { Message = "This is protected data." });
+    }
+
 
 
     private string GenerateJwtToken(string username)
@@ -49,7 +60,7 @@ public class SecurityController : ControllerBase
         var audience = _configuration["Jwt:Audience"];
         var masterKey = _configuration["Jwt:Key"] ?? "";
         var expiryMinutes =
-            Convert.ToDouble(_configuration["Jwt:ExpiryMinutes"]);
+            Convert.ToDouble(_configuration["Jwt:ExpiresInMinutes"]);
 
         // Create claims
         var claims = new[]

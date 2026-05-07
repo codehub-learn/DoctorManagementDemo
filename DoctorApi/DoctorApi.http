@@ -1,4 +1,8 @@
 @DoctorApi_HostAddress = https://localhost:7029/api/doctors
+@DoctorApi_HostAddress_Security = https://localhost:7029/api/Security
+@Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGltaXRyaXMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJkaW1pdHJpc0BleGFtcGxlLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzc4MTU3NjQyLCJpc3MiOiJteWFwaSIsImF1ZCI6Im15YXBpLXVzZXJzIn0.x9u9REaM-Mnq5RtZeW7CVBUDKlm7xvvnntg-kz8ayGk
+
+
 
 GET {{DoctorApi_HostAddress}}/
 Accept: application/json
@@ -27,3 +31,28 @@ Content-Type: application/json
 
 DELETE {{DoctorApi_HostAddress}}/1
 Accept: application/json
+
+
+###
+
+POST {{DoctorApi_HostAddress_Security}}/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "password"
+}
+
+
+###
+
+GET {{DoctorApi_HostAddress_Security}}/DoctorMessage
+Accept: application/json
+
+
+###
+
+GET {{DoctorApi_HostAddress_Security}}/DoctorMessage
+Accept: application/json
+Authorization: Bearer {{token}}
