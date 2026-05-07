@@ -50,6 +50,10 @@ Appointment appointment = new Appointment
          Description = "Regular check-up"
 };
 connection.Appointments.Add(appointment);
-connection.SaveChanges();
+await connection.SaveChangesAsync();
+
+
+
+
 
 connection.Dispose();

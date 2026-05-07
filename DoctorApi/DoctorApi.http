@@ -1,6 +1,29 @@
-@DoctorApi_HostAddress = http://localhost:5252
+@DoctorApi_HostAddress = https://localhost:7029/api/doctors
 
-GET {{DoctorApi_HostAddress}}/weatherforecast/
+GET {{DoctorApi_HostAddress}}/
 Accept: application/json
 
 ###
+
+GET {{DoctorApi_HostAddress}}/3
+Accept: application/json
+
+###
+
+POST {{DoctorApi_HostAddress}}/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Dr. Nick Dask22",
+  "dateOfBirth": "2000-03-01",
+  "description": "Experienced developer",
+  "specialization": 3
+}
+
+
+###
+###
+
+DELETE {{DoctorApi_HostAddress}}/1
+Accept: application/json
