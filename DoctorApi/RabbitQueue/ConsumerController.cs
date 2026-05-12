@@ -3,7 +3,7 @@
 using Microsoft.AspNetCore.Mvc;
  
 [ApiController]
-[Route("api/consumer")]
+[Route("api/[controller]")]
 public class ConsumerController : ControllerBase
 {
     private readonly IRabbitMqConsumer _consumer;
@@ -17,7 +17,6 @@ public class ConsumerController : ControllerBase
     public async Task<IActionResult> Consume()
     {
         var message = await _consumer.ConsumeAsync();
-
         if (message is null)
         {
             return NotFound(new
@@ -25,7 +24,6 @@ public class ConsumerController : ControllerBase
                 Message = "No messages in queue"
             });
         }
-
         return Ok(message);
     }
 

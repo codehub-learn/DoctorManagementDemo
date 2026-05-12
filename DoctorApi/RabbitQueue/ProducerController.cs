@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc;
  
 
 [ApiController]
-[Route("api/orders")]
-public class OrdersController : ControllerBase
+[Route("api/[controller]")]
+public class ProducerController : ControllerBase
 {
     private readonly IRabbitMqProducer _producer;
 
-    public OrdersController(IRabbitMqProducer producer)
+    public ProducerController(IRabbitMqProducer producer)
     {
         _producer = producer;
     }
@@ -18,7 +18,6 @@ public class OrdersController : ControllerBase
     public async Task<IActionResult> PublishOrder(OrderMessage request)
     {
         request.OrderId = Guid.NewGuid();
-
         request.CreatedAt = DateTime.UtcNow;
 
         await _producer.PublishAsync(request);

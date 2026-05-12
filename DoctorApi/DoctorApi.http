@@ -61,7 +61,7 @@ Authorization: Bearer {{token}}
 
 
 ####
-POST {{BASE_URL}}/api/orders/
+POST {{BASE_URL}}/api/producer/
 Accept: application/json
 Content-Type: application/json
 {
@@ -70,5 +70,10 @@ Content-Type: application/json
 }
 
 ###
-GET {{BASE_URL}}/api/consumer/consume
+GET {{BASE_URL}}/api/consumer/consume/
+Accept: application/json
+
+
+###
+GET {{BASE_URL}}/WeatherForecast/
 Accept: application/json
