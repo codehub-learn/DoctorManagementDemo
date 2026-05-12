@@ -1,3 +1,4 @@
+@BASE_URL = https://localhost:7029
 @DoctorApi_HostAddress = https://localhost:7029/api/doctors
 @DoctorApi_HostAddress_Security = https://localhost:7029/api/Security
 @Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGltaXRyaXMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJkaW1pdHJpc0BleGFtcGxlLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzc4MTU3NjQyLCJpc3MiOiJteWFwaSIsImF1ZCI6Im15YXBpLXVzZXJzIn0.x9u9REaM-Mnq5RtZeW7CVBUDKlm7xvvnntg-kz8ayGk
@@ -49,10 +50,25 @@ Content-Type: application/json
 
 GET {{DoctorApi_HostAddress_Security}}/DoctorMessage
 Accept: application/json
-
+Authorization: Bearer {{token}}
 
 ###
 
-GET {{DoctorApi_HostAddress_Security}}/DoctorMessage
+GET {{DoctorApi_HostAddress_Security}}/PatientMessage
 Accept: application/json
 Authorization: Bearer {{token}}
+
+
+
+####
+POST {{BASE_URL}}/api/orders/
+Accept: application/json
+Content-Type: application/json
+{
+   "customer":"Dimitris",
+   "amount":30.30
+}
+
+###
+GET {{BASE_URL}}/api/consumer/consume
+Accept: application/json

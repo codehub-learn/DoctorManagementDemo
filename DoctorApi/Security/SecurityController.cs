@@ -37,14 +37,22 @@ public class SecurityController : ControllerBase
 
 
     [HttpGet("doctorMessage")]
-    [Authorize]
-    public IActionResult GetProtectedData()
+    [Authorize(Roles ="Admin")]
+   
+    public IActionResult GetDoctorProtectedData()
     {
         // This endpoint is protected and requires a valid JWT token
         return Ok(new { Message = "This is protected data." });
     }
 
+    [HttpGet("patientMessage")]
+    [Authorize(Roles = "Patient")]
 
+    public IActionResult GetPatientProtectedData()
+    {
+        // This endpoint is protected and requires a valid JWT token
+        return Ok(new { Message = "This is protected data." });
+    }
 
     private string GenerateJwtToken(string username)
     {
