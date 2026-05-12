@@ -17,7 +17,16 @@ builder.Services.Configure<RabbitMqSettings>(
 builder.Services.AddSingleton<IRabbitMqProducer, RabbitMqProducer>();
 builder.Services.AddSingleton<IRabbitMqConsumer, RabbitMqConsumer>();
 
-
+//cors but vulnerable to all origins, methods, and headers. Use with caution in production environments.
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

@@ -4,5 +4,5 @@
 
 public interface IRabbitMqConsumer
 {
-    Task<OrderMessage?> ConsumeAsync();
+    Task<AppointmentMessage?> ConsumeAsync(string queueName);
 }

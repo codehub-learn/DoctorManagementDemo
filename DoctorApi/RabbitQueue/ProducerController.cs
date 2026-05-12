@@ -15,12 +15,13 @@ public class ProducerController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> PublishOrder(OrderMessage request)
+    public async Task<IActionResult> PublishOrder(AppointmentMessage request)
     {
         request.OrderId = Guid.NewGuid();
         request.CreatedAt = DateTime.UtcNow;
+        var queueName = request.Specialty;
 
-        await _producer.PublishAsync(request);
+        await _producer.PublishAsync(request, queueName);
 
         return Ok(new
         {

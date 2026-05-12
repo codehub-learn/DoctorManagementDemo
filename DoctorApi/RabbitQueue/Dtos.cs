@@ -12,10 +12,11 @@ public class RabbitMqSettings
 }
 
 
-public class OrderMessage
+public class AppointmentMessage
 {
     public Guid OrderId { get; set; }
-    public string Customer { get; set; } = string.Empty;
+    public string Patient { get; set; } = string.Empty;
+    public string Specialty { get; set; } = string.Empty;
     public decimal Amount { get; set; }
     public DateTime CreatedAt { get; set; }
 }

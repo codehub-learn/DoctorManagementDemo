@@ -13,10 +13,10 @@ public class ConsumerController : ControllerBase
         _consumer = consumer;
     }
 
-    [HttpGet("consume")]
-    public async Task<IActionResult> Consume()
+    [HttpGet("consume/{queueName}")]
+    public async Task<IActionResult> Consume([FromRoute] string queueName)
     {
-        var message = await _consumer.ConsumeAsync();
+        var message = await _consumer.ConsumeAsync(queueName);
         if (message is null)
         {
             return NotFound(new

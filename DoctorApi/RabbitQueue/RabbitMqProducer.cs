@@ -30,17 +30,21 @@ public sealed class RabbitMqProducer : IRabbitMqProducer, IDisposable
         _connection = factory.CreateConnectionAsync().GetAwaiter().GetResult();
 
         _channel = _connection.CreateChannelAsync().GetAwaiter().GetResult();
-
-        _channel.QueueDeclareAsync(
-            queue: _settings.QueueName,
+        List<string> queueNames = [ "cardiologist" ,"pathologist"];
+        queueNames.ForEach(queueName =>
+        {
+            _channel.QueueDeclareAsync(
+            queue: queueName, //_settings.QueueName,
             durable: true,
             exclusive: false,
             autoDelete: false,
             arguments: null
         ).GetAwaiter().GetResult();
+        });
+        
     }
 
-    public async Task PublishAsync(OrderMessage message)
+    public async Task PublishAsync(AppointmentMessage message, string queueName)
     {
         var json = JsonSerializer.Serialize(message);
 
@@ -53,7 +57,7 @@ public sealed class RabbitMqProducer : IRabbitMqProducer, IDisposable
 
         await _channel.BasicPublishAsync(
             exchange: string.Empty,
-            routingKey: _settings.QueueName,
+            routingKey: queueName, //_settings.QueueName,
             mandatory: false,
             basicProperties: properties,
             body: body

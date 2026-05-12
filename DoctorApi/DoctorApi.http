@@ -59,21 +59,24 @@ Accept: application/json
 Authorization: Bearer {{token}}
 
 
+###
+GET {{BASE_URL}}/WeatherForecast/
+Accept: application/json
+
+
+
 
 ####
 POST {{BASE_URL}}/api/producer/
 Accept: application/json
 Content-Type: application/json
 {
-   "customer":"Dimitris",
-   "amount":30.30
+   "patient":"Dimitris",
+   "specialty": "pathologist"
 }
 
 ###
-GET {{BASE_URL}}/api/consumer/consume/
+GET {{BASE_URL}}/api/consumer/consume/pathologist
 Accept: application/json
 
 
-###
-GET {{BASE_URL}}/WeatherForecast/
-Accept: application/json

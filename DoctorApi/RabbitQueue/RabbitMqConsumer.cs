@@ -35,17 +35,21 @@ public sealed class RabbitMqConsumer : IRabbitMqConsumer, IDisposable
             .GetAwaiter()
             .GetResult();
 
-        _channel.QueueDeclareAsync(
-            queue: _settings.QueueName,
+        List<string> queueNames = ["cardiologist", "pathologist"];
+        queueNames.ForEach(queueName =>
+        {
+            _channel.QueueDeclareAsync(
+            queue: queueName, //_settings.QueueName,
             durable: true,
             exclusive: false,
             autoDelete: false,
             arguments: null
         ).GetAwaiter().GetResult();
+        });
     }
     //change the following to select a specific queue to consume from,
     //and return null if no message is available
-    public async Task<OrderMessage?> ConsumeAsync()
+    public async Task<AppointmentMessage?> ConsumeAsync(string queueName)
     {
         /*
             BasicGetAsync:
@@ -53,7 +57,7 @@ public sealed class RabbitMqConsumer : IRabbitMqConsumer, IDisposable
         */
 
         var result = await _channel.BasicGetAsync(
-            queue: _settings.QueueName,
+            queue: queueName, //_settings.QueueName,
             autoAck: false
         );
 
@@ -66,7 +70,7 @@ public sealed class RabbitMqConsumer : IRabbitMqConsumer, IDisposable
         {
             var body = result.Body.ToArray();
             var json = Encoding.UTF8.GetString(body);
-            var message = JsonSerializer.Deserialize<OrderMessage>(json);
+            var message = JsonSerializer.Deserialize<AppointmentMessage>(json);
 
             /*
                 ACK manually

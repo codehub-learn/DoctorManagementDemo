@@ -4,5 +4,5 @@
  
 public interface IRabbitMqProducer
 {
-    Task PublishAsync(OrderMessage message);
+    Task PublishAsync(AppointmentMessage message, string queueName);
 }
