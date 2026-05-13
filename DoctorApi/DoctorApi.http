@@ -64,8 +64,6 @@ GET {{BASE_URL}}/WeatherForecast/
 Accept: application/json
 
 
-
-
 ####
 POST {{BASE_URL}}/api/producer/
 Accept: application/json
